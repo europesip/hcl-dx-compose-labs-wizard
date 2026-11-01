@@ -83,3 +83,9 @@ disponible bajo demanda: https://www.europesip.com
 La copia publicada en GitHub Pages está en el repositorio de los labs
 ([docs/](https://github.com/europesip/hcl-dx-compose-labs/tree/main/docs)) y
 son los mismos ficheros que estos.
+
+## Licencia y contribuciones
+
+Código abierto bajo la [Apache License 2.0](LICENSE), desarrollado originalmente por
+[EUROPESIP](https://www.europesip.com): úsalo, modifícalo y redistribúyelo conservando el fichero
+[NOTICE](NOTICE). Las contribuciones son bienvenidas: [CONTRIBUTING.es.md](CONTRIBUTING.es.md).

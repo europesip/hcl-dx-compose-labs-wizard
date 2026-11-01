@@ -1,0 +1,13 @@
+HCL DX Compose Labs · Configuration wizard
+Copyright 2026 EUROPESIP (https://www.europesip.com)
+
+This wizard was originally developed by EUROPESIP as part of the HCL DX Compose labs
+(https://github.com/europesip/hcl-dx-compose-labs) and is released as open source under the
+Apache License, Version 2.0 (see LICENSE).
+
+You may use, modify and redistribute it, and contribute improvements. Under section 4(d) of the
+licence, any redistribution or derivative work must keep this NOTICE file and the attribution to
+EUROPESIP as the original author.
+
+HCL Digital Experience, its Helm charts and container images are licensed products of HCL Software
+and are not included. HCL and other product names are trademarks of their respective owners.
