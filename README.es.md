@@ -32,11 +32,16 @@ OpenRouter están vacías), y te da tres opciones:
 |---|---|---|
 | **A · Solo `env.sh`** | El fichero de configuración que necesitan los labs | Sigues los labs a mano con sus guías |
 | **B · `env.sh` + `RUNBOOK.md`** (ZIP) | Además un `RUNBOOK.md` personalizado y **de solo lectura**: las instrucciones para montar, uno tras otro, los labs que has elegido, con los scripts que hay que ejecutar y los comandos `kubectl` / `helm` equivalentes con tus valores | Sigues el runbook |
-| **C · Instalación directa** (ZIP con `runbook/`) | Un `RUNBOOK.md` optimizado con **comandos directos** (tus valores escritos en cada comando, las comprobaciones marcadas como opcionales), un `install.sh` que ejecuta esos mismos comandos uno tras otro mostrando el lab y la fase, `secrets.env` (los únicos valores que no van escritos en los comandos) y los values generados | `cd runbook`, rellena `secrets.env`, sigue `RUNBOOK.md` o ejecuta `./install.sh` (`--list`, `--verify`, `--from <paso>`) |
+| **C · Instalación directa** (ZIP con `dx-install/`) | Una **instalación a medida y autónoma**: todos los ficheros (values, properties, LDIF, secrets) ya rellenos con tus valores, credenciales en claro; un `RUNBOOK.md` con comandos cortos y fáciles de seguir y un `install.sh` que los ejecuta mostrando el lab y la fase. No necesita el repositorio de los labs (solo hay que copiar a mano `setup-postgres-dx.sql`, para el Lab 2B) | `cd dx-install`, sigue `RUNBOOK.md` o ejecuta `./install.sh` (`--list`, `--verify`, `--from <paso>`) |
 
-A y B van en la raíz de tu copia del repositorio de los labs y usan los scripts de los labs. C
-también se descomprime en la raíz de la copia, pero crea su propia carpeta `runbook/`, no
-sobrescribe nada y solo lee los ficheros de los labs. El asistente en sí nunca habla con tu clúster.
+A y B van en la raíz de tu copia del repositorio de los labs y usan los scripts de los labs. C es
+independiente y se puede enviar a alguien que no tenga nada más; lleva credenciales en claro, así
+que guárdala en privado y rótalas después. El asistente en sí nunca habla con tu clúster.
+
+Para montar la opción C, `index.html` lleva una copia de los ficheros de los labs (el bloque
+`LAB TEMPLATES`, texto que nunca se ejecuta). En el repositorio de los labs,
+`tools/sync-wizard-templates.py` mantiene esa copia idéntica a los ficheros de los labs (`--check`
+avisa de las diferencias).
 
 ## Por qué puedes confiarle tus credenciales
 
@@ -60,10 +65,11 @@ secretas y no se guardan en ningún sitio**:
 
 Cómo comprobarlo tú mismo:
 
-1. Lee `index.html` (el JavaScript está al final, unas 500 líneas comentadas).
+1. Lee `index.html` (el JavaScript está al final, tras el bloque `LAB TEMPLATES`).
 2. Búscalo: no hay `fetch`, `XMLHttpRequest`, `WebSocket`, `sendBeacon` ni `src=`/`href=` externos a scripts o estilos.
+   Se excluye el bloque `LAB TEMPLATES` porque no es código (copias en texto de los ficheros de los labs para la opción C):
    ```bash
-   grep -nE 'fetch\(|XMLHttpRequest|WebSocket|sendBeacon|<script src|<link ' index.html
+   sed '/BEGIN LAB TEMPLATES/,/END LAB TEMPLATES/d' index.html | grep -nE 'fetch\(|XMLHttpRequest|WebSocket|sendBeacon|<script src|<link '
    ```
 3. Abre las herramientas de desarrollo del navegador, pestaña **Red** (*Network*), rellena el formulario y descarga: no hay peticiones.
 4. O ejecútalo en local con la red desconectada.

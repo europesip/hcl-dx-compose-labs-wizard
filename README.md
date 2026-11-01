@@ -31,11 +31,15 @@ reference lab environment; only the Harbor and OpenRouter credentials are empty)
 |---|---|---|
 | **A · Only `env.sh`** | The configuration file the labs need | Follow the labs manually with their guides |
 | **B · `env.sh` + `RUNBOOK.md`** (ZIP) | Also a personalised, **read-only** `RUNBOOK.md`: the instructions to build, one after the other, the labs you selected, with the scripts to run and the equivalent `kubectl` / `helm` commands using your values | Follow the runbook |
-| **C · Direct installation** (ZIP with `runbook/`) | An optimised `RUNBOOK.md` with **direct commands** (your values written in each command, checks marked as optional), an `install.sh` that runs those same commands one after the other showing the lab and step, `secrets.env` (the only values not written in the commands) and the generated values files | `cd runbook`, fill in `secrets.env`, follow `RUNBOOK.md` or run `./install.sh` (`--list`, `--verify`, `--from <step>`) |
+| **C · Direct installation** (ZIP with `dx-install/`) | A **self-contained, tailor-made installation**: every file (values, properties, LDIF, secrets) already filled in with your values, credentials in plain text; a `RUNBOOK.md` with short, easy-to-follow commands and an `install.sh` that runs them showing the lab and step. It does not need the labs repository (only `setup-postgres-dx.sql`, for Lab 2B, is copied in by hand) | `cd dx-install`, follow `RUNBOOK.md` or run `./install.sh` (`--list`, `--verify`, `--from <step>`) |
 
-A and B go in the root of your clone of the labs repository and use the lab scripts. C is unzipped
-in the root of the clone too, but it creates its own `runbook/` folder, overwrites nothing and only
-reads the lab files. The wizard itself never talks to your cluster.
+A and B go in the root of your clone of the labs repository and use the lab scripts. C is
+independent and can be sent to someone who has nothing else; it carries credentials in plain text,
+so keep it private and rotate them afterwards. The wizard itself never talks to your cluster.
+
+To build option C, `index.html` carries a copy of the lab files (the `LAB TEMPLATES` block, plain
+text that is never executed). In the labs repository, `tools/sync-wizard-templates.py` keeps that
+copy identical to the lab files (`--check` reports differences).
 
 ## Why you can trust it with your credentials
 
@@ -58,10 +62,11 @@ anywhere**:
 
 How to check it yourself:
 
-1. Read `index.html` (the JavaScript is at the end, ~500 lines with comments).
+1. Read `index.html` (the JavaScript is at the end, after the `LAB TEMPLATES` block).
 2. Search it: there is no `fetch`, `XMLHttpRequest`, `WebSocket`, `sendBeacon` or external `src=`/`href=` to scripts or styles.
+   The `LAB TEMPLATES` block is excluded because it is not code (text copies of the lab files for option C):
    ```bash
-   grep -nE 'fetch\(|XMLHttpRequest|WebSocket|sendBeacon|<script src|<link ' index.html
+   sed '/BEGIN LAB TEMPLATES/,/END LAB TEMPLATES/d' index.html | grep -nE 'fetch\(|XMLHttpRequest|WebSocket|sendBeacon|<script src|<link '
    ```
 3. Open the browser developer tools, **Network** tab, fill in the form and download: there are no requests.
 4. Or run it locally with the network disconnected.
