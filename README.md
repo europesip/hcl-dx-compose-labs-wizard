@@ -24,15 +24,18 @@ CF238 installed from scratch on Kubernetes, as a PoC).
 ## What it does
 
 It asks for your platform (Kubernetes, OpenShift or the WSL2 PoC), the DX host name, the
-StorageClasses, namespaces and release names and the labs you want, and gives you two options:
+StorageClasses, namespaces and release names and the labs you want (every field pre-filled with the values of the
+reference lab environment; only the Harbor and OpenRouter credentials are empty), and gives you three options:
 
 | Option | You get | Then |
 |---|---|---|
 | **A · Only `env.sh`** | The configuration file the labs need | Follow the labs manually with their guides |
 | **B · `env.sh` + `RUNBOOK.md`** (ZIP) | Also a personalised, **read-only** `RUNBOOK.md`: the instructions to build, one after the other, the labs you selected, with the scripts to run and the equivalent `kubectl` / `helm` commands using your values | Follow the runbook |
+| **C · Direct installation** (ZIP with `runbook/`) | An optimised `RUNBOOK.md` with **direct commands** (your values written in each command, checks marked as optional), an `install.sh` that runs those same commands one after the other showing the lab and step, `secrets.env` (the only values not written in the commands) and the generated values files | `cd runbook`, fill in `secrets.env`, follow `RUNBOOK.md` or run `./install.sh` (`--list`, `--verify`, `--from <step>`) |
 
-Both files go in the root of your clone of the labs repository. The lab scripts are what installs
-everything: the wizard never talks to your cluster.
+A and B go in the root of your clone of the labs repository and use the lab scripts. C is unzipped
+in the root of the clone too, but it creates its own `runbook/` folder, overwrites nothing and only
+reads the lab files. The wizard itself never talks to your cluster.
 
 ## Why you can trust it with your credentials
 

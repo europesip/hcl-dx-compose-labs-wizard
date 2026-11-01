@@ -24,16 +24,19 @@ instalado desde cero en Kubernetes, a modo de PoC).
 ## Qué hace
 
 Pregunta tu plataforma (Kubernetes, OpenShift o la PoC en WSL2), el nombre de host de DX, las
-StorageClasses, los namespaces y nombres de releases y los labs que quieres hacer, y te da dos
-opciones:
+StorageClasses, los namespaces y nombres de releases y los labs que quieres hacer (todos los campos
+rellenos con los valores del entorno de referencia de los labs; solo las credenciales de Harbor y
+OpenRouter están vacías), y te da tres opciones:
 
 | Opción | Obtienes | Después |
 |---|---|---|
 | **A · Solo `env.sh`** | El fichero de configuración que necesitan los labs | Sigues los labs a mano con sus guías |
 | **B · `env.sh` + `RUNBOOK.md`** (ZIP) | Además un `RUNBOOK.md` personalizado y **de solo lectura**: las instrucciones para montar, uno tras otro, los labs que has elegido, con los scripts que hay que ejecutar y los comandos `kubectl` / `helm` equivalentes con tus valores | Sigues el runbook |
+| **C · Instalación directa** (ZIP con `runbook/`) | Un `RUNBOOK.md` optimizado con **comandos directos** (tus valores escritos en cada comando, las comprobaciones marcadas como opcionales), un `install.sh` que ejecuta esos mismos comandos uno tras otro mostrando el lab y la fase, `secrets.env` (los únicos valores que no van escritos en los comandos) y los values generados | `cd runbook`, rellena `secrets.env`, sigue `RUNBOOK.md` o ejecuta `./install.sh` (`--list`, `--verify`, `--from <paso>`) |
 
-Los dos ficheros van en la raíz de tu copia del repositorio de los labs. Quien instala son los
-scripts de los labs: el asistente nunca habla con tu clúster.
+A y B van en la raíz de tu copia del repositorio de los labs y usan los scripts de los labs. C
+también se descomprime en la raíz de la copia, pero crea su propia carpeta `runbook/`, no
+sobrescribe nada y solo lee los ficheros de los labs. El asistente en sí nunca habla con tu clúster.
 
 ## Por qué puedes confiarle tus credenciales
 
