@@ -6,8 +6,15 @@ Código fuente del **asistente de configuración opcional** del repositorio
 [hcl-dx-compose-labs](https://github.com/europesip/hcl-dx-compose-labs) (HCL DX Compose CF238
 instalado desde cero en Kubernetes, a modo de PoC).
 
-- **Úsalo en línea (GitHub Pages):** https://europesip.github.io/hcl-dx-compose-labs/?lang=es
-- **O ejecútalo en local:** descarga [`index.html`](index.html) y ábrelo en tu navegador. Funciona sin conexión.
+- **Úsalo en línea (GitHub Pages):** empieza por la [página de presentación](https://europesip.github.io/hcl-dx-compose-labs/about.html?lang=es)
+  o ve directamente al [asistente](https://europesip.github.io/hcl-dx-compose-labs/?lang=es).
+- **O ejecútalo en local:** descarga [`index.html`](index.html) (el asistente) y [`about.html`](about.html)
+  (las explicaciones) y ábrelos en tu navegador. Funcionan sin conexión.
+
+| Fichero | Qué es |
+|---|---|
+| [`about.html`](about.html) | Página de presentación: qué hace el asistente, las dos opciones de salida, la privacidad y cómo comprobarla. Al final: *continuar al asistente* o *seguir los labs a mano* |
+| [`index.html`](index.html) | El asistente en sí: el formulario, la generación de `env.sh` / `RUNBOOK.md` y el ZIP. Toda la lógica está aquí |
 
 > ⚠️ **Experimental · en desarrollo (WIP).** El asistente evoluciona constantemente y debe tratarse
 > como algo experimental. Busca facilitar y aclarar la instalación, pero **hoy la vía recomendada
@@ -33,10 +40,11 @@ scripts de los labs: el asistente nunca habla con tu clúster.
 El asistente está pensado para que cualquiera pueda comprobar que **las credenciales siguen siendo
 secretas y no se guardan en ningún sitio**:
 
-- **Un único fichero.** Todo está en [`index.html`](index.html): HTML, CSS y JavaScript sencillos,
+- **Un único fichero.** Toda la lógica del asistente está en [`index.html`](index.html) (`about.html` solo
+  tiene texto y el cambio de idioma): HTML, CSS y JavaScript sencillos,
   **sin React, sin frameworks, sin compilación y sin dependencias**. Lo que lees es exactamente lo
   que se ejecuta, y es fácil de revisar. Por eso también funciona tal cual en GitHub Pages.
-- **Sin red, garantizado por el navegador.** La página declara una Content-Security-Policy:
+- **Sin red, garantizado por el navegador.** Las dos páginas declaran una Content-Security-Policy:
   `default-src 'none'; connect-src 'none'; script-src 'unsafe-inline'; ...` El navegador bloquea
   cualquier petición (`fetch`, XHR, WebSocket, scripts, imágenes o fuentes externas): aunque el
   código intentara enviar algo, no podría.
@@ -64,5 +72,5 @@ asistente desarrollado internamente, con funciones avanzadas y más opciones de 
 disponible bajo demanda: https://www.europesip.com
 
 La copia publicada en GitHub Pages está en el repositorio de los labs
-([docs/index.html](https://github.com/europesip/hcl-dx-compose-labs/blob/main/docs/index.html)) y
-es el mismo fichero que este.
+([docs/](https://github.com/europesip/hcl-dx-compose-labs/tree/main/docs)) y
+son los mismos ficheros que estos.

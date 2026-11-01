@@ -6,8 +6,15 @@ Source code of the **optional configuration wizard** of the
 [hcl-dx-compose-labs](https://github.com/europesip/hcl-dx-compose-labs) repository (HCL DX Compose
 CF238 installed from scratch on Kubernetes, as a PoC).
 
-- **Use it online (GitHub Pages):** https://europesip.github.io/hcl-dx-compose-labs/
-- **Or run it locally:** download [`index.html`](index.html) and open it in your browser. It works offline.
+- **Use it online (GitHub Pages):** start at the [about page](https://europesip.github.io/hcl-dx-compose-labs/about.html)
+  or go straight to the [wizard](https://europesip.github.io/hcl-dx-compose-labs/).
+- **Or run it locally:** download [`index.html`](index.html) (the wizard) and [`about.html`](about.html)
+  (the explanations) and open them in your browser. They work offline.
+
+| File | What it is |
+|---|---|
+| [`about.html`](about.html) | Presentation page: what the wizard does, the two output options, privacy and how to verify it. At the end: *continue to the wizard* or *follow the labs manually* |
+| [`index.html`](index.html) | The wizard itself: the form, the generation of `env.sh` / `RUNBOOK.md` and the ZIP. All the logic is here |
 
 > ⚠️ **Experimental · work in progress.** The wizard is evolving constantly and must be treated as
 > experimental. It aims to make the installation easier and clearer, but **the recommended path
@@ -32,10 +39,11 @@ everything: the wizard never talks to your cluster.
 The wizard is designed so that anyone can check that **credentials stay secret and are not stored
 anywhere**:
 
-- **One single file.** Everything is in [`index.html`](index.html): plain HTML, CSS and JavaScript,
+- **One single file.** All the wizard logic is in [`index.html`](index.html) (`about.html` only holds text
+  and the language switch): plain HTML, CSS and JavaScript,
   **no React, no frameworks, no build step and no dependencies**. What you read is exactly what
   runs, and it is easy to review. It is also why it works on GitHub Pages as is.
-- **No network, enforced by the browser.** The page declares a Content-Security-Policy:
+- **No network, enforced by the browser.** Both pages declare a Content-Security-Policy:
   `default-src 'none'; connect-src 'none'; script-src 'unsafe-inline'; ...` The browser blocks any
   request (`fetch`, XHR, WebSocket, external scripts, images or fonts): even if the code tried to
   send something, it could not.
@@ -62,5 +70,5 @@ developed internally, with advanced features and more customisation options, ava
 https://www.europesip.com
 
 The copy published on GitHub Pages lives in the labs repository
-([docs/index.html](https://github.com/europesip/hcl-dx-compose-labs/blob/main/docs/index.html)) and
-is the same file as this one.
+([docs/](https://github.com/europesip/hcl-dx-compose-labs/tree/main/docs)) and
+are the same files as these.
