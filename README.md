@@ -1,0 +1,66 @@
+# HCL DX Compose Labs · Configuration wizard
+
+**English** · [Español](README.es.md)
+
+Source code of the **optional configuration wizard** of the
+[hcl-dx-compose-labs](https://github.com/europesip/hcl-dx-compose-labs) repository (HCL DX Compose
+CF238 installed from scratch on Kubernetes, as a PoC).
+
+- **Use it online (GitHub Pages):** https://europesip.github.io/hcl-dx-compose-labs/
+- **Or run it locally:** download [`index.html`](index.html) and open it in your browser. It works offline.
+
+> ⚠️ **Experimental · work in progress.** The wizard is evolving constantly and must be treated as
+> experimental. It aims to make the installation easier and clearer, but **the recommended path
+> today is the one without the wizard**: `cp env.example.sh env.sh`, edit it and follow the guides
+> of each lab.
+
+## What it does
+
+It asks for your platform (Kubernetes, OpenShift or the WSL2 PoC), the DX host name, the
+StorageClasses, namespaces and release names and the labs you want, and gives you two options:
+
+| Option | You get | Then |
+|---|---|---|
+| **A · Only `env.sh`** | The configuration file the labs need | Follow the labs manually with their guides |
+| **B · `env.sh` + `RUNBOOK.md`** (ZIP) | Also a personalised, **read-only** `RUNBOOK.md`: the instructions to build, one after the other, the labs you selected, with the scripts to run and the equivalent `kubectl` / `helm` commands using your values | Follow the runbook |
+
+Both files go in the root of your clone of the labs repository. The lab scripts are what installs
+everything: the wizard never talks to your cluster.
+
+## Why you can trust it with your credentials
+
+The wizard is designed so that anyone can check that **credentials stay secret and are not stored
+anywhere**:
+
+- **One single file.** Everything is in [`index.html`](index.html): plain HTML, CSS and JavaScript,
+  **no React, no frameworks, no build step and no dependencies**. What you read is exactly what
+  runs, and it is easy to review. It is also why it works on GitHub Pages as is.
+- **No network, enforced by the browser.** The page declares a Content-Security-Policy:
+  `default-src 'none'; connect-src 'none'; script-src 'unsafe-inline'; ...` The browser blocks any
+  request (`fetch`, XHR, WebSocket, external scripts, images or fonts): even if the code tried to
+  send something, it could not.
+- **Everything happens in your browser.** `env.sh` and `RUNBOOK.md` are generated in memory and
+  downloaded with a local `blob:` link; the ZIP is built by a small function in the same file.
+- **Secrets are optional.** Harbor token, OpenRouter key and passwords can be left empty and filled
+  in later in `env.sh` (which is in the labs `.gitignore`: it is never committed).
+- **Only one thing is stored**: the language you choose, in `localStorage`.
+
+How to check it yourself:
+
+1. Read `index.html` (the JavaScript is at the end, ~500 lines with comments).
+2. Search it: there is no `fetch`, `XMLHttpRequest`, `WebSocket`, `sendBeacon` or external `src=`/`href=` to scripts or styles.
+   ```bash
+   grep -nE 'fetch\(|XMLHttpRequest|WebSocket|sendBeacon|<script src|<link ' index.html
+   ```
+3. Open the browser developer tools, **Network** tab, fill in the form and download: there are no requests.
+4. Or run it locally with the network disconnected.
+
+## About this wizard
+
+It is a **simplified, functional option, specific to these labs**. EUROPESIP has another wizard
+developed internally, with advanced features and more customisation options, available on demand:
+https://www.europesip.com
+
+The copy published on GitHub Pages lives in the labs repository
+([docs/index.html](https://github.com/europesip/hcl-dx-compose-labs/blob/main/docs/index.html)) and
+is the same file as this one.
