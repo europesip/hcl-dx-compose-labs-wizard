@@ -3,7 +3,7 @@
 [English](README.md) · **Español**
 
 Código fuente del **asistente de configuración opcional** del repositorio
-[hcl-dx-compose-labs](https://github.com/europesip/hcl-dx-compose-labs) (HCL DX Compose CF238
+[hcl-dx-compose-labs](https://github.com/europesip/hcl-dx-compose-labs) (HCL DX Compose CF239
 instalado desde cero en Kubernetes, a modo de PoC).
 
 - **Úsalo en línea (GitHub Pages):** empieza por la [página de presentación](https://europesip.github.io/hcl-dx-compose-labs/about.html?lang=es)

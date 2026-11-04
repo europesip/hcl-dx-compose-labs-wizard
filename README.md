@@ -4,7 +4,7 @@
 
 Source code of the **optional configuration wizard** of the
 [hcl-dx-compose-labs](https://github.com/europesip/hcl-dx-compose-labs) repository (HCL DX Compose
-CF238 installed from scratch on Kubernetes, as a PoC).
+CF239 installed from scratch on Kubernetes, as a PoC).
 
 - **Use it online (GitHub Pages):** start at the [about page](https://europesip.github.io/hcl-dx-compose-labs/about.html)
   or go straight to the [wizard](https://europesip.github.io/hcl-dx-compose-labs/).
